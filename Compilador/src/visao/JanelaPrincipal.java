@@ -16,34 +16,65 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTextComandos = new javax.swing.JTextField();
         jMenuBar = new javax.swing.JMenuBar();
         jMenuArquivo = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
-        jMenu6 = new javax.swing.JMenu();
+        jMenuItemNovo = new javax.swing.JMenuItem();
+        jMenuItemAbrir = new javax.swing.JMenuItem();
+        jMenuItemSalvar = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItemSair = new javax.swing.JMenuItem();
+        jMenuLexico = new javax.swing.JMenu();
+        jMenuSintatico = new javax.swing.JMenu();
+        jMenuSemantico = new javax.swing.JMenu();
+        jMenuCodigo = new javax.swing.JMenu();
+        jMenuajuda = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Compilador");
+        setPreferredSize(new java.awt.Dimension(800, 600));
 
+        jMenuArquivo.setMnemonic('A');
         jMenuArquivo.setText("Arquivo");
+
+        jMenuItemNovo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemNovo.setText("Novo");
+        jMenuArquivo.add(jMenuItemNovo);
+
+        jMenuItemAbrir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemAbrir.setText("Abrir");
+        jMenuArquivo.add(jMenuItemAbrir);
+
+        jMenuItemSalvar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemSalvar.setText("Salvar");
+        jMenuArquivo.add(jMenuItemSalvar);
+        jMenuArquivo.add(jSeparator1);
+
+        jMenuItemSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemSair.setText("Sair");
+        jMenuArquivo.add(jMenuItemSair);
+
         jMenuBar.add(jMenuArquivo);
 
-        jMenu2.setText("Léxico");
-        jMenuBar.add(jMenu2);
+        jMenuLexico.setMnemonic('L');
+        jMenuLexico.setText("Léxico");
+        jMenuBar.add(jMenuLexico);
 
-        jMenu3.setText("Sintático");
-        jMenuBar.add(jMenu3);
+        jMenuSintatico.setMnemonic('S');
+        jMenuSintatico.setText("Sintático");
+        jMenuBar.add(jMenuSintatico);
 
-        jMenu4.setText("Semântico");
-        jMenuBar.add(jMenu4);
+        jMenuSemantico.setMnemonic('e');
+        jMenuSemantico.setText("Semântico");
+        jMenuBar.add(jMenuSemantico);
 
-        jMenu5.setText("Código");
-        jMenuBar.add(jMenu5);
+        jMenuCodigo.setMnemonic('C');
+        jMenuCodigo.setText("Código");
+        jMenuBar.add(jMenuCodigo);
 
-        jMenu6.setText("Ajuda");
-        jMenuBar.add(jMenu6);
+        jMenuajuda.setMnemonic('j');
+        jMenuajuda.setText("Ajuda");
+        jMenuBar.add(jMenuajuda);
 
         setJMenuBar(jMenuBar);
         jMenuBar.getAccessibleContext().setAccessibleName("");
@@ -52,11 +83,17 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 640, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextComandos, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 459, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextComandos, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -66,12 +103,18 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             setVisible(true);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenuArquivo;
     private javax.swing.JMenuBar jMenuBar;
+    private javax.swing.JMenu jMenuCodigo;
+    private javax.swing.JMenuItem jMenuItemAbrir;
+    private javax.swing.JMenuItem jMenuItemNovo;
+    private javax.swing.JMenuItem jMenuItemSair;
+    private javax.swing.JMenuItem jMenuItemSalvar;
+    private javax.swing.JMenu jMenuLexico;
+    private javax.swing.JMenu jMenuSemantico;
+    private javax.swing.JMenu jMenuSintatico;
+    private javax.swing.JMenu jMenuajuda;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextField jTextComandos;
     // End of variables declaration//GEN-END:variables
 }

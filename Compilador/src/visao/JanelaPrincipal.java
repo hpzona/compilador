@@ -1,5 +1,21 @@
 package visao;
 
+import java.awt.BorderLayout;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JScrollPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 public class JanelaPrincipal extends javax.swing.JFrame {
 
     public JanelaPrincipal() {
@@ -16,6 +32,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
         jTextComandos = new javax.swing.JTextField();
         jMenuBar = new javax.swing.JMenuBar();
         jMenuArquivo = new javax.swing.JMenu();
@@ -34,6 +51,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         setTitle("Compilador");
         setPreferredSize(new java.awt.Dimension(800, 600));
 
+        jScrollPane1.setViewportView(jTextComandos);
+
         jMenuArquivo.setMnemonic('A');
         jMenuArquivo.setText("Arquivo");
 
@@ -43,10 +62,20 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         jMenuItemAbrir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemAbrir.setText("Abrir");
+        jMenuItemAbrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemAbrirActionPerformed(evt);
+            }
+        });
         jMenuArquivo.add(jMenuItemAbrir);
 
         jMenuItemSalvar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemSalvar.setText("Salvar");
+        jMenuItemSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemSalvarActionPerformed(evt);
+            }
+        });
         jMenuArquivo.add(jMenuItemSalvar);
         jMenuArquivo.add(jSeparator1);
 
@@ -85,22 +114,49 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextComandos, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextComandos, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jMenuItemAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAbrirActionPerformed
+        JFileChooser jFileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                ".txt ou .lsi", "txt", "lsi");
+        jFileChooser.setFileFilter(filter);
+        jFileChooser.setAcceptAllFileFilterUsed(false);
+        if (jFileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File arquivo = jFileChooser.getSelectedFile();
+            try {
+                jTextComandos.read(new FileReader(arquivo), null);
+            } catch (Exception e) {
+            }
+        }
+    }//GEN-LAST:event_jMenuItemAbrirActionPerformed
+
+    private void jMenuItemSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSalvarActionPerformed
+        JFileChooser jFileChooser = new JFileChooser();
+
+        if (jFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File arquivo = jFileChooser.getSelectedFile();
+            try {
+                jTextComandos.write(new FileWriter(arquivo));
+            } catch (Exception e) {
+            }
+    }//GEN-LAST:event_jMenuItemSalvarActionPerformed
+    }
+
     public void interaja() {
-            setVisible(true);
+        setVisible(true);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenuArquivo;
@@ -114,7 +170,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuSemantico;
     private javax.swing.JMenu jMenuSintatico;
     private javax.swing.JMenu jMenuajuda;
-    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JTextField jTextComandos;
     // End of variables declaration//GEN-END:variables
 }

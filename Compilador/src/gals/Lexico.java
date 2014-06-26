@@ -1,6 +1,5 @@
 package gals;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.Properties;
 
@@ -10,10 +9,9 @@ public class Lexico implements Constants {
     private String input;
     private int[][] SCANNER_TABLE;
 
-    public Lexico() throws IOException {
+    public Lexico() {
         this("");
         LerArquivoProperties();
-
     }
 
     public Lexico(String input) {
@@ -73,7 +71,6 @@ public class Lexico implements Constants {
 
     private int nextState(char c, int state) {
         int next = (SCANNER_TABLE[state][c]);
-        System.out.print(next);
         return next;
     }
 
@@ -118,15 +115,11 @@ public class Lexico implements Constants {
         }
     }
 
-    private String[][] fetchArrayFromPropFile(String propertyName, Properties propFile) {
+    private void refazerArray(String identificador, Properties propFile) {
         String temp;
-        int numero = 0;
-        String[] a = propFile.getProperty(propertyName).split(";");
-        // Para debugar e verificar se leu o array corretamente
-        /*for (int i = 0; i < a.length; i++) {
-         System.out.println(a[i]);
-         }*/
+        int numero;
 
+        String[] a = propFile.getProperty(identificador).split(";");
         String[][] array = new String[a.length][a.length];
         for (int i = 0; i < a.length; i++) {
             array[i] = a[i].split(",");
@@ -138,54 +131,23 @@ public class Lexico implements Constants {
             for (int j = 0; j < array[i].length; j++) {
                 temp = array[i][j];
                 numero = Integer.parseInt(temp);
-                System.out.print(numero);
                 SCANNER_TABLE[i][j] = numero;
-                System.out.print(" " + SCANNER_TABLE[i][j]);
+                //Se quiser ver a tabela...
+                //System.out.print(" " + SCANNER_TABLE[i][j]); 
             }
-            System.out.println();
+            //Se quiser ver a tabela...
+            //System.out.println();
         }
-        return array;
     }
 
-    private void LerArquivoProperties() throws IOException {
+    private void LerArquivoProperties() {
         Properties prop = new Properties();
         URL url = ClassLoader.getSystemResource("gals/ScannerConstants.properties");
-
         try {
             prop.load(url.openStream());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //System.out.println("------- By Using URL class -------");
-        //System.out.println(prop.get("content"));
-        //System.out.println(prop);
-
-        fetchArrayFromPropFile("content", prop);
-
-        /*for (int i = 0; i < SCANNER_TABLE_TEMP.length; i++) {
-         for (int j = 0; j < SCANNER_TABLE_TEMP[i].length; j++){
-         temp = SCANNER_TABLE_TEMP[i][j];
-         System.out.print(temp);
-         //numero = Integer.parseInt(temp);
-         //SCANNER_TABLE[i][j]=numero;
-         //System.out.print(","+SCANNER_TABLE[i][j]);
-         }
-         }*/
-        /*Properties prop = new Properties();
-         InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("gals/ScannerConstants.properties");
- 
-         try{
-         prop.load(inputStream);
-         }catch(IOException e)
-         {
-         e.printStackTrace();
-         }
- 
-         System.out.println("------- By Using Thread class -------");
-         //Print required values
-         System.out.println(prop.get("content"));
- 
-         //Print all the properties
-         System.out.println(prop);*/
+        refazerArray("identificador", prop);
     }
 }

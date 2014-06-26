@@ -71,8 +71,11 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemAnalisarSintatico">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Analisar c&#xf3;digo"/>
+                <Property name="text" type="java.lang.String" value="Compilar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemAnalisarSintaticoActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

@@ -12,9 +12,9 @@ public class AnalisadorLexico {
 
     public AnalisadorLexico(JanelaPrincipal janelaPrincipal) {
         jp = janelaPrincipal;
-    } 
-    
-    public void analisarLexico(String codigo) throws IOException  {
+    }
+
+    public void analisarLexico(String codigo) {
 
         Lexico lexico = new Lexico();
         lexico.setInput(codigo);
@@ -23,16 +23,15 @@ public class AnalisadorLexico {
             Token t = null;
             while ((t = lexico.nextToken()) != null) {
             }
-            System.out.print("Análise completa\n");
             jp.mostrarResultaAnalise("Análise completa\nNenhum erro encontrado");
         } catch (LexicalError e) {
-            System.out.println(e.getPosition());
-            System.out.println(e.getMessage());
-            //jp.setCursorNoErro(e.getPosition());
-            jp.mostrarResultaAnalise("Erro léxico na posição: "+e.getPosition()+"\n"+e.getMessage()+"\n");
+            //System.out.println(e.getPosition());
+            //System.out.println(e.getMessage());
+            jp.setCursorNoErro(e.getPosition());
+            jp.mostrarResultaAnalise("Erro léxico na posição: " + e.getPosition() + "\n" + e.getMessage() + "\n");
         } finally {
-            
+
         }
     }
-    
+
 }

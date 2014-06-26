@@ -1,24 +1,25 @@
 package visao;
 
-
 import controladora.AnalisadorLexico;
+import controladora.AnalisadorSintatico;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+
 public class JanelaPrincipal extends javax.swing.JFrame {
-    
+
     AnalisadorLexico analisadorLexico;
-    
+    AnalisadorSintatico analisadorSintatico;
+
     public JanelaPrincipal() {
         initComponents();
         setLocationRelativeTo(null);
         this.analisadorLexico = new AnalisadorLexico(this);
+        this.analisadorSintatico = new AnalisadorSintatico(this);
     }
 
     /**
@@ -103,7 +104,12 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jMenuSintatico.setMnemonic('S');
         jMenuSintatico.setText("Sintático");
 
-        jMenuItemAnalisarSintatico.setText("Analisar código");
+        jMenuItemAnalisarSintatico.setText("Compilar");
+        jMenuItemAnalisarSintatico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemAnalisarSintaticoActionPerformed(evt);
+            }
+        });
         jMenuSintatico.add(jMenuItemAnalisarSintatico);
 
         jMenuBar.add(jMenuSintatico);
@@ -157,7 +163,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             File arquivo = jFileChooser.getSelectedFile();
             try {
                 jTextCodigo.read(new FileReader(arquivo), null);
-            } catch (Exception e) {
+            } catch (IOException e) {
             }
         }
     }//GEN-LAST:event_jMenuItemAbrirActionPerformed
@@ -169,18 +175,19 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             File arquivo = jFileChooser.getSelectedFile();
             try {
                 jTextCodigo.write(new FileWriter(arquivo));
-            } catch (Exception e) {
+            } catch (IOException e) {
             }
         }
     }//GEN-LAST:event_jMenuItemSalvarActionPerformed
 
     private void jMenuItemAnalisarLexicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAnalisarLexicoActionPerformed
-        try {
-            this.analisadorLexico.analisarLexico(jTextCodigo.getText());
-        } catch (IOException ex) {
-            Logger.getLogger(JanelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.analisadorLexico.analisarLexico(jTextCodigo.getText());
+
     }//GEN-LAST:event_jMenuItemAnalisarLexicoActionPerformed
+
+    private void jMenuItemAnalisarSintaticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAnalisarSintaticoActionPerformed
+        this.analisadorSintatico.analisarSintaxe(jTextCodigo.getText());
+    }//GEN-LAST:event_jMenuItemAnalisarSintaticoActionPerformed
 
     public void interaja() {
         setVisible(true);
@@ -189,6 +196,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     public void mostrarResultaAnalise(String resultado) {
         //Exibe na textArea de saída os resultado da análise
         this.jTextResultadoAnalise.setText(resultado);
+    }
+
+    public void setCursorNoErro(int position) {
+        jTextCodigo.setCaretPosition(position);
+        jTextCodigo.requestFocus();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenuArquivo;

@@ -1,9 +1,9 @@
 package gals;
 
-public interface Constants extends ScannerConstants, ParserConstants
-{
-    int EPSILON  = 0;
-    int DOLLAR   = 1;
+public interface Constants extends ScannerConstants, ParserConstants {
+
+    int EPSILON = 0;
+    int DOLLAR = 1;
 
     int t_id = 2;
     int t_num_int = 3;
@@ -61,5 +61,4 @@ public interface Constants extends ScannerConstants, ParserConstants
     int t_TOKEN_55 = 55; //"<>"
     int t_TOKEN_56 = 56; //"<="
     int t_TOKEN_57 = 57; //">="
-
 }

@@ -1,9 +1,6 @@
 package gals;
 
-import static com.sun.jmx.mbeanserver.DefaultMXBeanMappingFactory.propertyName;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.Properties;
 
@@ -11,7 +8,7 @@ public class Lexico implements Constants {
 
     private int position;
     private String input;
-    private String[][] SCANNER_TABLE;
+    private int[][] SCANNER_TABLE;
 
     public Lexico() throws IOException {
         this("");
@@ -75,7 +72,8 @@ public class Lexico implements Constants {
     }
 
     private int nextState(char c, int state) {
-        int next = Integer.parseInt(SCANNER_TABLE[state][c]);
+        int next = (SCANNER_TABLE[state][c]);
+        System.out.print(next);
         return next;
     }
 
@@ -120,19 +118,32 @@ public class Lexico implements Constants {
         }
     }
 
-    private static String[][] fetchArrayFromPropFile(String propertyName, Properties propFile) {
-        //int numero[][];
+    private String[][] fetchArrayFromPropFile(String propertyName, Properties propFile) {
+        String temp;
+        int numero = 0;
         String[] a = propFile.getProperty(propertyName).split(";");
         // Para debugar e verificar se leu o array corretamente
-        for (int i = 0; i < a.length; i++) {
-           // numero[i] = Integer.parseInt(a[i]);
-           System.out.println(a[i]);
-        }
+        /*for (int i = 0; i < a.length; i++) {
+         System.out.println(a[i]);
+         }*/
+
         String[][] array = new String[a.length][a.length];
         for (int i = 0; i < a.length; i++) {
             array[i] = a[i].split(",");
         }
-        
+
+        SCANNER_TABLE = new int[array.length][array[0].length];
+
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[i].length; j++) {
+                temp = array[i][j];
+                numero = Integer.parseInt(temp);
+                System.out.print(numero);
+                SCANNER_TABLE[i][j] = numero;
+                System.out.print(" " + SCANNER_TABLE[i][j]);
+            }
+            System.out.println();
+        }
         return array;
     }
 
@@ -149,7 +160,17 @@ public class Lexico implements Constants {
         //System.out.println(prop.get("content"));
         //System.out.println(prop);
 
-        String[][] SCANNER_TABLE = fetchArrayFromPropFile("content", prop);
+        fetchArrayFromPropFile("content", prop);
+
+        /*for (int i = 0; i < SCANNER_TABLE_TEMP.length; i++) {
+         for (int j = 0; j < SCANNER_TABLE_TEMP[i].length; j++){
+         temp = SCANNER_TABLE_TEMP[i][j];
+         System.out.print(temp);
+         //numero = Integer.parseInt(temp);
+         //SCANNER_TABLE[i][j]=numero;
+         //System.out.print(","+SCANNER_TABLE[i][j]);
+         }
+         }*/
         /*Properties prop = new Properties();
          InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("gals/ScannerConstants.properties");
  
@@ -166,6 +187,5 @@ public class Lexico implements Constants {
  
          //Print all the properties
          System.out.println(prop);*/
-
     }
 }

@@ -3,6 +3,7 @@ package controladora;
 import gals.LexicalError;
 import gals.Lexico;
 import gals.Token;
+import java.io.IOException;
 import visao.JanelaPrincipal;
 
 public class AnalisadorLexico {
@@ -13,10 +14,7 @@ public class AnalisadorLexico {
         jp = janelaPrincipal;
     } 
     
-    /**
-     * @param codigo String contém o texto a ser analisado
-     */
-    public void analisarLexico(String codigo) {
+    public void analisarLexico(String codigo) throws IOException  {
 
         Lexico lexico = new Lexico();
         lexico.setInput(codigo);

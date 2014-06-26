@@ -1,26 +1,24 @@
 package visao;
 
-import java.awt.BorderLayout;
-import java.io.BufferedReader;
+
+import controladora.AnalisadorLexico;
 import java.io.File;
-import java.io.FileFilter;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
-import javax.swing.JScrollPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class JanelaPrincipal extends javax.swing.JFrame {
-
+    
+    AnalisadorLexico analisadorLexico;
+    
     public JanelaPrincipal() {
         initComponents();
         setLocationRelativeTo(null);
+        this.analisadorLexico = new AnalisadorLexico(this);
     }
 
     /**
@@ -33,7 +31,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane = new javax.swing.JScrollPane();
-        jCheckBoxMenuItemAnalisarLexico = new javax.swing.JTextArea();
+        jTextCodigo = new javax.swing.JTextArea();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextResultadoAnalise = new javax.swing.JTextArea();
         jMenuBar = new javax.swing.JMenuBar();
@@ -52,11 +50,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Compilador");
-        setPreferredSize(new java.awt.Dimension(800, 600));
 
-        jCheckBoxMenuItemAnalisarLexico.setColumns(20);
-        jCheckBoxMenuItemAnalisarLexico.setRows(5);
-        jScrollPane.setViewportView(jCheckBoxMenuItemAnalisarLexico);
+        jTextCodigo.setColumns(20);
+        jTextCodigo.setRows(5);
+        jScrollPane.setViewportView(jTextCodigo);
 
         jTextResultadoAnalise.setColumns(20);
         jTextResultadoAnalise.setRows(5);
@@ -93,7 +90,12 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jMenuLexico.setMnemonic('L');
         jMenuLexico.setText("Léxico");
 
-        jMenuItemAnalisarLexico.setText("Analisar código");
+        jMenuItemAnalisarLexico.setText("Compilar");
+        jMenuItemAnalisarLexico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemAnalisarLexicoActionPerformed(evt);
+            }
+        });
         jMenuLexico.add(jMenuItemAnalisarLexico);
 
         jMenuBar.add(jMenuLexico);
@@ -154,7 +156,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         if (jFileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File arquivo = jFileChooser.getSelectedFile();
             try {
-                jCheckBoxMenuItemAnalisarLexico.read(new FileReader(arquivo), null);
+                jTextCodigo.read(new FileReader(arquivo), null);
             } catch (Exception e) {
             }
         }
@@ -166,23 +168,29 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         if (jFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             File arquivo = jFileChooser.getSelectedFile();
             try {
-                jCheckBoxMenuItemAnalisarLexico.write(new FileWriter(arquivo));
+                jTextCodigo.write(new FileWriter(arquivo));
             } catch (Exception e) {
             }
         }
     }//GEN-LAST:event_jMenuItemSalvarActionPerformed
-    
+
+    private void jMenuItemAnalisarLexicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAnalisarLexicoActionPerformed
+        try {
+            this.analisadorLexico.analisarLexico(jTextCodigo.getText());
+        } catch (IOException ex) {
+            Logger.getLogger(JanelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItemAnalisarLexicoActionPerformed
+
     public void interaja() {
         setVisible(true);
     }
-    
-    public void mostrarResultaAnalise(String resultado)
-    {
-        //Exite na textArea de saída os resultado da análise
+
+    public void mostrarResultaAnalise(String resultado) {
+        //Exibe na textArea de saída os resultado da análise
         this.jTextResultadoAnalise.setText(resultado);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea jCheckBoxMenuItemAnalisarLexico;
     private javax.swing.JMenu jMenuArquivo;
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JMenuItem jMenuItemAbrir;
@@ -198,6 +206,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JTextArea jTextCodigo;
     private javax.swing.JTextArea jTextResultadoAnalise;
     // End of variables declaration//GEN-END:variables
 }

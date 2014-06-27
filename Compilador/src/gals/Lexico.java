@@ -11,7 +11,7 @@ public class Lexico implements Constants {
 
     public Lexico() {
         this("");
-        LerArquivoProperties();
+        this.lerArquivoProperties();
     }
 
     public Lexico(String input) {
@@ -140,7 +140,7 @@ public class Lexico implements Constants {
         }
     }
 
-    private void LerArquivoProperties() {
+    private void lerArquivoProperties() {
         Properties prop = new Properties();
         URL url = ClassLoader.getSystemResource("gals/ScannerConstants.properties");
         try {
